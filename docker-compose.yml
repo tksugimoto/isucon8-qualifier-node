@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  db:
+    image: mariadb:10
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    volumes:
+      - ./db:/tmp/db:ro
+      - ./db/init-user.sh:/docker-entrypoint-initdb.d/01-init-user.sh:ro
+      - ./docker-compose/db-init-for-docker.sh:/docker-entrypoint-initdb.d/02-init.sh:ro
