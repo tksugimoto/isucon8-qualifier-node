@@ -13,7 +13,8 @@ services:
       - "${ISUCON_8_DB_IP_PORT:-0.0.0.0:3306}:3306"
 
   app:
-    image: node:8
+    image: centos-7-node
+    build: ./docker-compose/centos-7-node
     volumes:
       - ./webapp:/tmp/webapp
       - ./docker-compose/app-run.sh:/tmp/app-run.sh:ro
