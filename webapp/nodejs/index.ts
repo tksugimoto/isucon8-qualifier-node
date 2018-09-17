@@ -702,7 +702,8 @@ function resError(reply, error: string = "unknown", status: number = 500) {
     .send({ error });
 }
 
-fastify.listen(8080, (err, address) => {
+// dockerコンテナ内での起動用に全IPからのリクエストを受け付ける
+fastify.listen(8080, "0.0.0.0", (err, address) => {
   if (err) {
     throw new TraceError("Failed to listening", err);
   }
