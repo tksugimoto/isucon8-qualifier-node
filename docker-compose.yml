@@ -9,3 +9,14 @@ services:
       - ./db:/tmp/db:ro
       - ./db/init-user.sh:/docker-entrypoint-initdb.d/01-init-user.sh:ro
       - ./docker-compose/db-init-for-docker.sh:/docker-entrypoint-initdb.d/02-init.sh:ro
+
+  app:
+    image: node:8
+    volumes:
+      - ./webapp:/tmp/webapp
+      - ./docker-compose/app-run.sh:/tmp/app-run.sh:ro
+    depends_on:
+      - db
+    # FIXME: DBの準備完了を待つ（今はとりあえずrestartでごまかしている）
+    restart: on-failure
+    command: ["/tmp/app-run.sh"]
